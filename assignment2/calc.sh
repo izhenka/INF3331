@@ -1,27 +1,28 @@
 #!/bin/bash
 
-operation=$1
+operation=$1;
+shift;
 
 if [ $# -lt 2 ]; then
   echo "Too few parameters. Usage: [operation] [integer1] [integer2] ..."
   exit
 fi
 
-if [ $operation == "S" ]; then
-  echo "Sum"
-elif [ $operation == "P" ]; then
-  echo "Product"
-elif [ $operation == "M" ]; then
-  echo "Maximum"
-elif [ $operation == "m" ]; then
-  echo "Minimun"
-else
-  echo "Wrong operation code: $operation. Use S, P, M, m"
-fi
+
+declare -i res; res=$1; shift;
+
+for arg in $@; do
+  case "$operation" in
+    S)
+      ((res+=arg)) ;;
+    P)
+      ((res*=arg)) ;;
+    M)
+      echo "Hui" ;;
+    *)
+     echo "$0: invalid option \"$operation\""; exit ;;
+   esac
+done
 
 
-# declare -i n; n=1
-# for arg in $@; do
-#   echo "command-line argument no. $n is <$arg>"
-#   ((n++))
-# done
+echo $res
