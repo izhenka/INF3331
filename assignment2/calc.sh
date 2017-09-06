@@ -18,7 +18,9 @@ for arg in $@; do
     P)
       ((res*=arg)) ;;
     M)
-      echo "Hui" ;;
+      ((res=(arg>res?arg:res))) ;;
+    m)
+      ((res=(arg<res?arg:res))) ;;
     *)
      echo "$0: invalid option \"$operation\""; exit ;;
    esac
