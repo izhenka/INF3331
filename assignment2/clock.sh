@@ -12,7 +12,7 @@ case "$tz_code" in
   "")
     timezone="" ;;
   *)
-    echo "$0: invalid option \"$operation\""; exit ;;
+    echo "$0: invalid option \"$tz_code\""; exit ;;
   esac
 
 
