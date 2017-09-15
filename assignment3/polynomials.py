@@ -38,7 +38,23 @@ class Polynomial:
 
         If p is not an int or Polynomial, should raise ArithmeticError."""
 
-        raise NotImplemented
+        if not isinstance(p, (int, Polynomial)):
+            raise ArithmeticError
+        if isinstance(p, int):
+            return (self+[p])
+        elif isinstance(p, Polynomial):
+            coefficients =[]
+            len_self = len(self.coefficients)
+            len_p = len(p.coefficients)
+            max_len = max(len_self, len_p)
+            for index in range(max_len):
+                val_self = self.coefficients[index] if index<len_self else 0
+                var_p = p.coefficients[index] if index<len_p else 0
+                coefficients.append(val_self+var_p)
+            return Polynomial(coefficients)
+        else:
+            raise ArithmeticError
+
 
     def __sub__(self, p):
         """Return the polynomial which is the difference of p and this polynomial
@@ -92,7 +108,14 @@ class Polynomial:
     def __eq__(self, p):
         """Check if two polynomials have the same coefficients."""
 
-        raise NotImplemented
+        if len(self.coefficients)!=len(p.coefficients):
+            return False
+
+        for index in range(len(self.coefficients)):
+            if self.coefficients[index]!=p.coefficients[index]:
+                return False
+
+        return True
 
 def sample_usage():
     p = Polynomial([1, 2, 1]) # 1 + 2x + x^2

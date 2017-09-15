@@ -15,8 +15,8 @@ def test_polynomial_evaluate_minus_2():
 
 def test_add_polynomials():
     p1 = Polynomial([1, 2, 3])
-    p2 = Polynomial([1, 2, 3, 4])
-    assert (p1 + p2) == Polynomial([2, 4, 6, 4])
+    p2 = Polynomial([1, 0, 3, 4])
+    assert (p1 + p2) == Polynomial([2, 2, 6, 4])
 
 def test_add_polynomials_with_zeroes():
     p1 = Polynomial([0, 2, 0])
@@ -72,4 +72,5 @@ test_repr_ones()
 test_polynomial_evaluate_0()
 test_polynomial_evaluate_1()
 test_polynomial_evaluate_minus_2()
+test_add_polynomials()
 print("All tests are passed!")
