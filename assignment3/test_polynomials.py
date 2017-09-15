@@ -15,8 +15,8 @@ def test_polynomial_evaluate_minus_2():
 
 def test_add_polynomials():
     p1 = Polynomial([1, 2, 3])
-    p2 = Polynomial([1, 0, 3, 4])
-    assert (p1 + p2) == Polynomial([2, 2, 6, 4])
+    p2 = Polynomial([1, 2, 3, 4])
+    assert (p1 + p2) == Polynomial([2, 4, 6, 4])
 
 def test_add_polynomials_with_zeroes():
     p1 = Polynomial([0, 2, 0])
@@ -61,6 +61,16 @@ def test_repr_ones():
     assert str(p) == "x^2 + x + 1 "
 
 
+def test_eq():
+    p1 = Polynomial([1, 0, 1, 0, 0, 0])
+    p2 = Polynomial([1, 0, 1, 0])
+    assert p1 == p2
+
+def test_multiply():
+    p = Polynomial([1, 0, 3])
+    assert p*2 == Polynomial([2, 0, 6])
+
+
 test_degree_no_zeroes()
 test_degree_highest_zero()
 test_degree_all_zeroes()
@@ -73,4 +83,8 @@ test_polynomial_evaluate_0()
 test_polynomial_evaluate_1()
 test_polynomial_evaluate_minus_2()
 test_add_polynomials()
+test_add_polynomials_with_zeroes()
+test_subtract_polynomials()
+test_eq()
+test_multiply()
 print("All tests are passed!")

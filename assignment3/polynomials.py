@@ -4,7 +4,8 @@ class Polynomial:
         """coefficients should be a list of numbers with
         the i-th element being the coefficient a_i."""
 
-        self.coefficients = coefficients
+        self.coefficients = withoutLeadZeroes(coefficients)
+
 
     def degree(self):
         """Return the index of the highest nonzero coefficient.
@@ -14,7 +15,7 @@ class Polynomial:
             if self.coefficients[index] != 0:
                 return index
 
-        return -1;
+        return -1
 
 
     def coefficients(self):
@@ -30,16 +31,13 @@ class Polynomial:
         for index in range(len(self.coefficients)):
             result+= self.coefficients[index]*(x**index)
 
-        return result;
+        return result
 
     def __add__(self, p):
         """Return the polynomial which is the sum of p and this polynomial
         Should assume p is Polynomial([p]) if p is int.
 
         If p is not an int or Polynomial, should raise ArithmeticError."""
-
-        if not isinstance(p, (int, Polynomial)):
-            raise ArithmeticError
         if isinstance(p, int):
             return (self+[p])
         elif isinstance(p, Polynomial):
@@ -61,14 +59,28 @@ class Polynomial:
         Should assume p is Polynomial([p]) if p is int.
 
         If p is not an int or Polynomial, should raise ArithmeticError."""
-
-        raise NotImplemented
+        if isinstance(p, int):
+            return (self-p)
+        elif isinstance(p, Polynomial):
+            coefficients =[]
+            len_self = len(self.coefficients)
+            len_p = len(p.coefficients)
+            max_len = max(len_self, len_p)
+            for index in range(max_len):
+                val_self = self.coefficients[index] if index<len_self else 0
+                var_p = p.coefficients[index] if index<len_p else 0
+                coefficients.append(val_self-var_p)
+            return Polynomial(coefficients)
+        else:
+            raise ArithmeticError
 
     def __mul__(self, c):
         """Return the polynomial which is this polynomial multiplied by given integer.
         Should raise ArithmeticError if c is not an int."""
-
-        raise NotImplemented
+        if isinstance(c, int):
+            return Polynomial([x * c for x in self.coefficients])
+        else:
+            raise ArithmeticError
 
 
     def __rmul__(self, c):
@@ -107,6 +119,8 @@ class Polynomial:
 
     def __eq__(self, p):
         """Check if two polynomials have the same coefficients."""
+        if type(self)!=type(p):
+            return False
 
         if len(self.coefficients)!=len(p.coefficients):
             return False
@@ -116,6 +130,17 @@ class Polynomial:
                 return False
 
         return True
+
+def withoutLeadZeroes(array):
+    """cuts all zero-values on the end of array"""
+    index_until = len(array)
+    for value in reversed(array):
+        if value==0:
+            index_until-=1
+        else:
+            break
+
+    return array[:index_until]
 
 def sample_usage():
     p = Polynomial([1, 2, 1]) # 1 + 2x + x^2
