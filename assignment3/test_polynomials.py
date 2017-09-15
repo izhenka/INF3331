@@ -70,6 +70,10 @@ def test_multiply():
     p = Polynomial([1, 0, 3])
     assert p*2 == Polynomial([2, 0, 6])
 
+def test_rmul():
+    p = Polynomial([1, 0, 3])
+    assert 2*p == Polynomial([2, 0, 6])
+
 
 test_degree_no_zeroes()
 test_degree_highest_zero()
@@ -87,4 +91,5 @@ test_add_polynomials_with_zeroes()
 test_subtract_polynomials()
 test_eq()
 test_multiply()
+test_rmul()
 print("All tests are passed!")

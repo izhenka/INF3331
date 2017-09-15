@@ -18,7 +18,7 @@ class Polynomial:
         return -1
 
 
-    def coefficients(self):
+    def getCoefficients(self):
         """Return the list of coefficients.
 
         The i-th element of the list should be a_i, meaning that the last
@@ -85,8 +85,7 @@ class Polynomial:
 
     def __rmul__(self, c):
         """Return the polynomial which is this polynomial multiplied by some integer"""
-
-        raise NotImplemented
+        return self*c
 
     def __repr__(self):
         """Return a nice string representation of polynomial.
@@ -139,7 +138,6 @@ def withoutLeadZeroes(array):
             index_until-=1
         else:
             break
-
     return array[:index_until]
 
 def sample_usage():
@@ -149,7 +147,7 @@ def sample_usage():
 
     print("The value of {} at {} is {}".format(p, 7, p(7)))
 
-    print("The coefficients of {} are {}".format(p, p.coefficients()))
+    print("The coefficients of {} are {}".format(p, p.getCoefficients()))
 
 
     print("\nAdding {} and {} yields {}".format(p, q, p+q))
@@ -166,3 +164,5 @@ def sample_usage():
     print("\nIs {} - {} the same as {}? Answer: {}".format(
         p, q, r, p-q == r
     ))
+
+sample_usage()
