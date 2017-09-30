@@ -1,0 +1,15 @@
+integrate(lambda x: x**2, 0, 1, N)
+-----------------------------------
+N=1E+6: 0.4029 sec
+N=1E+7: 3.0556 sec
+N=1E+8: 33.8539 sec
+
+
+numpy_integrate(lambda x: x**2, 0, 1, N):
+-----------------------------------
+N=1E+6: 0.0153 sec
+N=1E+7: 0.1469 sec
+N=1E+8: 1.6542 sec
+
+----------------------
+Numpy implementation is about 20 times faster. But is also linear in N.
