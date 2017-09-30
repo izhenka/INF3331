@@ -20,5 +20,5 @@ def plotError():
     plt.legend()
     plt.show()
 
-
-plotError()
+if __name__ == '__main__':
+    plotError()
