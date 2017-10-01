@@ -10,6 +10,15 @@ def integrate (f, a, b, N):
         sum += f(a+index*step)
     return sum*step
 
+
+def midpoint_integrate (f, a, b, N):
+    N = int(N)
+    step = abs(b-a)/(N+1)
+    sum = 0
+    for index in range(1, N+2):
+        sum += f(a+index*step - step/2)
+    return sum*step
+
 def plotError():
     x = [1, 2, 4 , 10, 20, 40, 100, 200, 400]
     func = lambda i: abs(integrate(lambda z: z**2, 0, 1, i) - 1/3)
@@ -29,3 +38,6 @@ if __name__ == '__main__':
     t1 = time.clock()
 
     print('{:.4f} sec'.format(t1-t0))
+
+    result_midpoint = midpoint_integrate(lambda x: x**2, 0, 1, N=1E+6)
+    print("result:{}, result_midpoint:{}".format(result, result_midpoint))
