@@ -1,0 +1,19 @@
+integrate(lambda x: x**2, 0, 1, N) (from report2.txt)
+-----------------------------------
+N=1E+6: 0.4029 sec
+N=1E+7: 3.0556 sec
+N=1E+8: 33.8539 sec
+
+
+numba_integrate(0, 1, N), using f(x)=x**2 hardcoded in function body:
+-----------------------------------
+N=1E+6: 0.1821 sec
+N=1E+7: 0.1991 sec
+N=1E+8: 0.3156 sec
+N=1E+9: 1.4934 sec
+N=1E+10: 13.1043 sec
+
+----------------------
+I did't manage to gain speed from Numba passing the f(x) as a parameter.
+Instead I hardcoded the function in numba_integrate's body, decorating f(x) with @jit aw well.
+I gained about 110 times more speed at N=1E+8.
