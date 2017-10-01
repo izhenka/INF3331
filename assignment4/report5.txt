@@ -1,0 +1,21 @@
+=======Endpoint:=======
+result_integrator:  1.9999999998354958
+result_numpy:       1.9999999998355098
+
+Difference:
+
+integrator:         1.6450418804936362e-10
+numpy:              1.6449019923925334e-10
+
+=======Midpoint:=======
+result_integrator:  2.00000000008226
+result_numpy:       2.000000000082245
+
+Difference:
+
+integrator:         8.225997660815665e-11
+numpy:              8.224487757502175e-11
+
+
+The required N is N=1E+5.
+Didn't test numba implementation because it is the same as Python-implementation.
