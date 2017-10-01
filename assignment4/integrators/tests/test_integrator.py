@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from integrator import integrate
-from numpy_integrator import numpy_integrate
+from .integrator import integrate
+from .numpy_integrator import numpy_integrate
 from numpy import vectorize
 
 def test_integral_of_constant_function():
