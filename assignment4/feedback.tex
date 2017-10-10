@@ -1,0 +1,137 @@
+\documentclass[a4paper]{article}
+
+% Import some useful packages
+\usepackage[margin=0.5in]{geometry} % narrow margins
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{LightGray}{gray}{0.95}
+
+\title{Peer-review of assignment 4 for \textit{INF3331-evgeniag}}
+\author{Reviewer 1, morthand {morthand@uio.no} \\
+ 		Reviewer 2, sindrech, {sindrechl@uio.no} \\
+		Reviewer 3, peterdevoogd@live.nl, {youremail@uio.no}}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\subsection{Goal}
+The review should provide feedback on the solution to the student. The main goal is to \emph{give constructive feedback and advice} on how to improve the solution. You, the peer-review team, can decide how you organise the peer-review work between you. 
+
+\subsection{Guidelines}\label{sec:general_review}
+For each (coding) exercise, one should review the following points:
+
+\begin{itemize}
+  \item Is the code \textbf{working as expected}? For non-internal functions (in particular for scripts that are run from the command-line), does the program handle invalid inputs sensibly?
+  \item Is the code \textbf{well documented}? Are there docstrings and are the useful?
+  \item Is the code written in \textbf{Pythonic way} \footnote{https://www.python.org/dev/peps/pep-0020/}? Is the code easy to read? Are the variable/class/function names sensible? Do you find overuse of classes or not sufficient use of functions or classes? Are there parts of the program that are hard to understand? 
+  \item Can you find \textbf{unnecessarily complicated parts} of the program? If so, suggest an improved implementation.
+  \item List the programming parts that are not answered.
+\end{itemize}
+Use (shortened) code snippets where appropriate to show how to improve the solution. 
+
+\subsection{Points}
+The review is completed by pushing the review Latex source file (.tex files) and the PDF files to each of the reviewed repositories. The name of the files should be \emph{feedback.tex} and \emph{feedback.pdf} in the students assignemnt4 directory.
+
+You will get up to 10 points for delivering the peer-reviews. Each of you should contribute to the review roughly equivalently - your team will get the same number of points\footnote{In case a team-member does not contribute, please email \href{mailto:simon@simula.no}{simon@simula.no}}. 
+
+
+
+\section{Review \emph{- to be filled out}}\label{sec:review}
+
+Specify the system (Python version, operating system, ...) that was used for the review.
+
+Python 3.6.1, macOS Sierra
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{General feedback}
+Use this section to give general feedback about the solution such as advice for improved programming or documentation style.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Assignment 4.1}
+Add a review based on section \ref{sec:general_review}. Do the tests have a meaningful name?
+
+Both the test-file and the tests have the correct name according to the specification in the assignment, thereby meaningful. 
+Both the constant and linear integral tests are passed. The code is not documented, but since we know what the assignment is about the code is self-explanatory.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Assignment 4.2} \label{sec:assignment5.2}
+Add a review based on section \ref{sec:general_review}.
+
+The plot is excellent! It shows how precise the integration is when N gets very  large. The integration functions are well defined, short and precise and does what they are supposed to do. It is easy to understand since the variables have meaningful names.  There is not much need for improvements except maybe adding some comments.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Assignment 4.3}
+Add a review based on section \ref{sec:general_review}. In addition, review the following assignment specific items: 
+\begin{itemize}
+  \item Is numpy being used effectively (e.i. vectorization where possible)?
+\end{itemize}
+
+The tests added to test-integrator works. The student has commented out a line where he tried to vectorize the function, since it makes the function slower. But due to my limited understanding of numpy and vectorization I am unsure why it makes it slower.  But the solution presented with numpy linspace is the same as mine. And I would say that this works very well, and I guess a very good vectorization!
+The code could have been commented a bit to explain the +2 endpoints.
+
+The report3 shows the integration and numpy integration speed comparison and explains the speedup using numpy. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Assignment 4.4}
+Add a review based on section \ref{sec:general_review}.
+
+@jit feels like magic. So when it does not work fast, like when the function is not hardcoded as the student explains in report4, it is difficult to understand why. 
+The functions in the numba.py file is easy to understand since it's the same integration functions as in 4.2 except using @jit. 
+The report4 explains the speedup from switching from normal python integration to using numba. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Assignment 4.5}
+Add a review based on section \ref{sec:general_review}. If you are reviewing a INF3331 student, you can skip this review.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Assignment 4.6}
+Add a review based on section \ref{sec:general_review}.
+
+The 3 midpoint functions for integrator, numpy and numba seems to be correctly implemented. The results from running integrator-comparison was maybe a little hard to understand just from the print out to terminal, without looking at the code. It could maybe have printed out something like: "Finding the needed N to get a precision of 10-10:" "Result for integrator: N=x", for this is just small stuff!
+
+The student has found a N that gets a good enough precision. The assignment says nothing about choosing this number manually or creating a script that find this number automatic, so I see nothing wrong with just choosing a high enough number!
+In report5 the student explains why he has not tested numba midpoint. Even though it is the same as integrator, it could have been included, but I guess that it is not that important.
+
+I would say that the student has delivered  a very good solution to this assignment!
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Assignment 4.7}
+Add a review based on section \ref{sec:general_review}.
+
+The setup files contains the 2 folders/packages, so I guess everything is correct! :)
+
+Getting help from the TA to understand what and how module/packages work precisely was hard. I ran the setup file, and then I tried to run some files and got errors because it was unable to import stuff. I just moved some files and got it all working without any hassle. So I guess this is mostly due to my lack of understanding, and just choosing the easy way to get things working.
+
+
+\subsection*{Assignment 4.8}
+Add a review based on section \ref{sec:general_review}.
+
+Don't think the student took part.
+
+\subsection{Useful Latex snippets}
+Here are some sample usage of Latex.
+
+\subsubsection{Sample code}
+\begin{minted}[bgcolor=LightGray, linenos, fontsize=\footnotesize]{python}
+import sys
+print "This is a sample code"
+sys.exit(0)
+\end{minted}
+
+\subsubsection{Mathematical equation}
+\begin{align}
+2 \pi > 6
+\end{align}
+
+
+
+\bibliographystyle{plain}
+\bibliography{literature}
+
+\end{document}
