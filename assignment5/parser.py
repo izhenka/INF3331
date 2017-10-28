@@ -1,45 +1,59 @@
 import re
 
+def parse_bold(text):
+    tag = r"(?:(?<!\\)%)"
+    regex_in = tag + r"((?:\\%|[^%])+)" + tag
+    regex_out = r"<b>\1</b>"
+    return re.sub(regex_in, regex_out, text)
 
-source_text = """%Lorem% ipsum *dolor sit amet*, consectetur *adipiscing elit. Nullam tempor* nunc at justo tincidunt congue. %Aliquam hendrerit mollis pretium! Praesent id% mi est. [Praesent,](www.praesent.com) sed orci aliquet, dapibus elit sed, maximus dolor. Donec ut viverra velit, in sollicitudin nisl. Aliquam nec orci sit amet sem congue condimentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+def parse_italic(text):
+    tag = r"(?:(?<!\\)\*)"
+    regex_in = tag + r"((?:\\\*|[^\*])+)" + tag
+    regex_out = r"<i>\1</i>"
+    return re.sub(regex_in, regex_out, text)
 
->>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a nulla *eget eros euismod volutpat. Suspendisse* id luctus lorem. Vivamus non erat bibendum lacus sodales convallis scelerisque ac diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget quam eros. Nulla lectus turpis, porttitor sed laoreet id, varius eget dolor. Proin non sapien et risus dictum suscipit quis id leo. Aenean at mauris vel eros gravida gravida. Sed feugiat %molestie \*libero vel\%\% pulvinar? Sed% a accumsan risus, at vehicula felis. Nullam eget est blandit eros consectetur facilisis. Etiam ligula augue, fringilla ac nibh sit amet, posuere dignissim libero. Nunc accumsan odio leo, et mollis turpis aliquam eu. Proin sed maximus erat. Maecenas diam velit, tristique et posuere ut, placerat sit amet diam.
+def parse_escaped_tags(text):
+    regex_in = r"\\([%\*])"
+    return re.sub(regex_in, r"\1", text)
 
-Curabitur finibus, turpis viverra rutrum consequat, ligula tortor consectetur ex, eu malesuada lacus ipsum in \%% urna. \% Fusce% in *sapien %mau\*ris.% Duis purus dui*, viverra in tellus eu, imperdiet fringilla [felis. Curabitur rhoncus tincidunt varius. Cras](inf3331.no) gravida metus ut [wp:vestibulum] vestibulum. \*Integer cursus* ex\* in rutrum volutpat*. Nunc scelerisque gravida risus sed ullamcorper. Proin [lorem,](https://www.malesuada.com) massa <https://www.mn.uio.no/astro/english/services/it/help/basic-services/latex/uiologo.gif>(w=100,h=40) quam in, scelerisque elementum arcu. Nunc scelerisque sem ac lectus porttitor, sed molestie odio *bibendum.*
-"""
+def parse_links(text):
+    regex_in = r"\[([^\[\]]+)\]\(((http[s]?:\/\/)?.+)\)"
+    regex_out = r"<a href='\2'>\1</a>"
+    return re.sub(regex_in, formate_link, text)
 
-source_text_test = """%Lorem% ipsum *dolor sit amet*, consectetur *adipiscing elit. Nullam tempor* nunc at justo tincidunt congue. %Aliquam hendrerit mollis pretium! Praesent id% mi est. [Praesent,](www.praesent.com) sed orci aliquet, dapibus elit sed, maximus dolor. Donec ut viverra velit, in sollicitudin nisl. Aliquam nec orci sit amet sem congue condimentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+def formate_link(matchobj):
+    prefix = ""
+    if matchobj.group(3) == None:
+        prefix = "http://"
 
->>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a nulla *eget eros euismod volutpat. Suspendisse* id luctus lorem. Vivamus non erat bibendum lacus sodales convallis scelerisque ac diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget quam eros. Nulla lectus turpis, porttitor sed laoreet id, varius eget dolor. Proin non sapien et risus dictum suscipit quis id leo. Aenean at mauris vel eros gravida gravida. Sed feugiat %molestie \*libero vel\%\% pulvinar? Sed% a accumsan risus, at vehicula felis. Nullam eget est blandit eros consectetur facilisis. Etiam ligula augue, fringilla ac nibh sit amet, posuere dignissim libero. Nunc accumsan odio leo, et mollis turpis aliquam eu. Proin sed maximus erat. Maecenas diam velit, tristique et posuere ut, placerat sit amet diam.
+    group1 = matchobj.group(1)
+    group2 = matchobj.group(2)
+    return f"<a href='{prefix}{group2}'>{group1}</a>"
 
-Curabitur finibus, turpis viverra rutrum consequat, ligula tortor consectetur ex, eu malesuada lacus ipsum in \%% urna. \% Fusce% in *sapien %mau\*ris.% Duis purus dui*, viverra in tellus eu, imperdiet fringilla [felis. Curabitur rhoncus tincidunt varius. Cras](inf3331.no) gravida metus ut [wp:vestibulum] vestibulum. \*Integer cursus* ex\* in rutrum volutpat*. Nunc scelerisque gravida risus sed ullamcorper. Proin [lorem,](https://www.malesuada.com) massa <https://www.mn.uio.no/astro/english/services/it/help/basic-services/latex/uiologo.gif>(w=100,h=40) quam in, scelerisque elementum arcu. Nunc scelerisque sem ac lectus porttitor, sed molestie odio *bibendum.*
-"""
+def parse_nwodkram(text):
+    result = parse_bold(text)
+    result = parse_italic(result)
+    result = parse_escaped_tags(result)
+    result = parse_links(result)
+    return result
 
+if __name__ == '__main__':
 
-bold_tag = r"(?:(?<!\\)%)"
-bold_in = bold_tag + r"((?:\\%|[^%])+)" + bold_tag
-bold_out = r"<b>\1</b>"
+    source_text = r"""
+    This is some Nwodkram text. Note that *this* is in italic, and %this% is in bold.
+    If you want to write an \* or an equal sign and not have the parser eat them,
+    that's easy -  note that \* this \* is not in italic even though it's between two \*s,
+    and \% this \% is not in bold.
 
-italic_tag = r"(?:(?<!\\)\*)"
-italic_in = italic_tag + r"((?:\\\*|[^\*])+)" + italic_tag
-italic_out = r"<i>\1</i>"
+    [here](www.google.com) is a hyperlink.
+    [here](http://www.google.com) is another.
+    [and here](https://www.weird?$|site.weird/path/) is a third with some weird characters.
+    Follow it at your own peril.
 
-link = r"\[([^\[\]]+)\]\((.+)\)"
-
-escaped_tags_in = r"\\([%\*])"
-
-# search_results = re.findall(bold, source_text_test)
-# print(search_results)
-
-# bolding
-substituted_text = re.sub(bold_in, bold_out, source_text)
-# italizing
-substituted_text = re.sub(italic_in, italic_out, substituted_text)
-# escaped characters
-substituted_text = re.sub(escaped_tags_in, r"\1", substituted_text)
-
-# print(substituted_text)
-
-filename = "hui"
-with open('out.html', 'w') as f:
-    print(substituted_text, file=f)
+    Ideally, it would be good if your hyperlinks can contain parentheses and underscores.
+    But don't worry too much if some weird combination is ambiguous or results in
+    weird stuff.
+    """
+    result = parse_nwodkram(source_text)
+    with open('out.html', 'w') as f:
+        print(result, file=f)
