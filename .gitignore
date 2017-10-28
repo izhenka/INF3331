@@ -1,3 +1,5 @@
 *.pyc
 .cache/*
 .cache/
+teststuite/
+examples_assignment_5.py
