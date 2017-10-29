@@ -52,7 +52,6 @@ def parse_blockquotes(text):
 
 def parse_wiki_searches(text):
     regex_in = r"\[wp:(.+)\]"
-    # print(re.findall(regex_in, text))
     regex_out = r"<a href='https://en.wikipedia.org/w/index.php?title=Special:Search&search=\1'>Search Wikipedia for \1</a>"
     return re.sub(regex_in, regex_out, text)
 

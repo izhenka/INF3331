@@ -1,14 +1,13 @@
 import re
 
 def find_emails(text):
-    regex = r"\w+@\w+(?:\.\w+)+"
     name = server = r"[\w\.#$%&~’\*\+\-/=?‘|{}.]+"
-    regex = f"{name}@{server}"+r"(?:\.[a-zA-Z](?:\w+)*[a-zA-Z])"
-    result = re.findall(regex, text)
+    regex = f"{name}@{server}"+r"(?:\.[a-z](?:\w+)*[a-z])"
+    result = re.findall(regex, text, flags=re.IGNORECASE)
     return result
 
 
-
-if __name__ == '__main__':
-    text = ""
-    print(find_emails(text))
+def find_urls(text):
+    regex = r"<a\s+(?:class.+)?href\s*=\s*(\"|\')(http[s]?://(?:www\.)?[a-z1-9\.\-~]+\.[a-z1-9\.\-~]+[a-z1-9/\.\-~]*)\1>"
+    matches = re.findall(regex, text,flags=re.IGNORECASE)
+    return list(map(lambda x: x[1], matches))
