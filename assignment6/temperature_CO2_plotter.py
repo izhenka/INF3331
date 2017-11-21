@@ -24,7 +24,7 @@ def plot_temperature(year_from, year_to, month, y_min=None, y_max=None):
     plot.set_ylabel("Temperature, $^\circ$C")
     if y_min!=None and y_max!=None:
         plot.set_ylim(y_min,y_max)
-    plt.show()
+    # plt.show()
 
 def month_from_int(number):
     """
@@ -52,12 +52,15 @@ def plot_CO2(year_from, year_to, y_min=None, y_max=None):
     plot.set_ylabel("CO2-emission, mln tons")
     if y_min!=None and y_max!=None:
         plot.set_ylim(y_min,y_max)
-    plt.show()
+    # plt.show()
 
      
      
      
 if __name__ == '__main__':
     plot_temperature(1867, 2017, 4)
+    plt.show()
     plot_CO2(1867, 2017)
+    plt.show()
+
      
