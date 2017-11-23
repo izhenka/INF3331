@@ -11,10 +11,10 @@ import uuid
 
 app = Flask(__name__)
 
-default_options =  Options.get_defaults()
 
 @app.route("/")
 def plot_with_default():
+    default_options =  Options.get_defaults()
     return render_plots(default_options)
 
 def render_plots(options):
@@ -61,15 +61,7 @@ def render_page(body):
 
 @app.route("/newplot", methods=['POST'])
 def redraw():    
-    year_from = request.form["yearFrom"]
-    year_to = request.form["yearTo"]
-    month = request.form["month"]
-    year_min = request.form["yMin"]
-    year_max = request.form["yMax"]    
-    options = Options(year_from, year_to, month, year_min, year_max)
-    
-    print("options " + str(options))
-    
+    options = get_options_from_request()
     error = options.check()
     if not error:
         return render_plots(options)
@@ -77,6 +69,15 @@ def redraw():
         return render_page(f"<h1>Error! {error}</h1>")
     
     
+def get_options_from_request():
+    year_from = request.form["yearFrom"]
+    year_to = request.form["yearTo"]
+    month = request.form["month"]
+    year_min = request.form["yMin"]
+    year_max = request.form["yMax"]    
+    options = Options(year_from, year_to, month, year_min, year_max)
+    return options
+
 
 def save_plot_and_return_url():
     uid = uuid.uuid4()
