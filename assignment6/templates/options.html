@@ -1,0 +1,42 @@
+<form action="newplot" method="POST">
+    <div class="container" style="width: 500px; margin-left: 10px; margin-top: 20px;">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="yearFrom">Year from</label>
+            <input type="number" name="yearFrom" class="form-control" id="yearFrom" placeholder="Enter year to plot from">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="yearTo">Year to</label>
+            <input type="number" name="yearTo" class="form-control" id="yearTo" placeholder="Enter year to plot to">
+          </div>
+        </div>
+          <div class="form-group">
+            <label for="month">Month(for temperature)</label>
+            <select name="month" class="form-control" id="month">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="yMin">Y-value min</label>
+                <input type="number" name="yMin" class="form-control" id="yMin" placeholder="Enter min y-value">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="yMax">Y-value max</label>
+                <input type="number" name="yMax" class="form-control" id="yMax" placeholder="Enter max y-value">
+              </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Refresh</button>
+    </div>
+</form>  

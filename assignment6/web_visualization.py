@@ -1,6 +1,8 @@
 # File: hello_world.py
 from flask import Flask
 from flask import url_for
+from flask import request
+from flask import render_template
 from options import Options
 from temperature_CO2_plotter import plot_temperature
 from temperature_CO2_plotter import plot_CO2
@@ -9,17 +11,17 @@ import uuid
 
 app = Flask(__name__)
 
-default_options =  Options(1867, 2017, 1, None, None)
+default_options =  Options.get_defaults()
 
 @app.route("/")
 def plot_with_default():
     return render_plots(default_options)
 
 def render_plots(options):
-    plot_temperature(default_options)
+    plot_temperature(options)
     temperature_url = save_plot_and_return_url()
     
-    plot_CO2(default_options)
+    plot_CO2(options)
     co2_url = save_plot_and_return_url()
     
     body = f"""
@@ -57,18 +59,24 @@ def render_page(body):
     return html
 
 
-@app.route("/newplot")
-def redraw():
-    # TODO 
-    # read parameters from requiest,
-    # make new options
-    # return render_plots(options)
-    # check parameters?
-    # try <input type="range" min="5" max="10" step="0.01">
-    html = f"""
-    <h1>Fuck you!</h1>
-    """
-    return html
+@app.route("/newplot", methods=['POST'])
+def redraw():    
+    year_from = request.form["yearFrom"]
+    year_to = request.form["yearTo"]
+    month = request.form["month"]
+    year_min = request.form["yMin"]
+    year_max = request.form["yMax"]    
+    options = Options(year_from, year_to, month, year_min, year_max)
+    
+    print("options " + str(options))
+    
+    error = options.check()
+    if not error:
+        return render_plots(options)
+    else:
+        return render_page(f"<h1>Error! {error}</h1>")
+    
+    
 
 def save_plot_and_return_url():
     uid = uuid.uuid4()
