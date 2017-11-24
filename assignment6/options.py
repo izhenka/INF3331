@@ -1,6 +1,13 @@
 from flask import render_template
 
 class Options:
+    """
+    Options for plots:
+        month: [1-12] which month to plot temperatures for 
+        year_from, year_to: Time range for both plots
+        y_min, y_max: y-axis min, max for temperature plot
+        y_min_co2, y_max_co2: y-axis min, max for CO2-missions plot
+    """
     
     default_year_from = 1867
     default_year_to = 2017
@@ -19,6 +26,9 @@ class Options:
 
     @classmethod
     def get_defaults(cls):
+        """
+        Returns new Options-object with default values
+        """
         return cls()        
     
     

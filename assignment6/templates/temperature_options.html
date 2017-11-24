@@ -1,0 +1,13 @@
+<div class="form-row">
+    <div class="form-group col-auto">
+      <label for="yMin">Temperature min</label>
+      <input type="number" name="yMin" value="{{ options.y_min }}" class="form-control" id="yMin" placeholder="Enter min y-value">
+    </div>
+    <div class="form-group col-auto">
+      <label for="yMax">Temperature max</label>
+      <input type="number" name="yMax" value="{{ options.y_max }}" class="form-control" id="yMax" placeholder="Enter max y-value">
+    </div>
+    <div class="form-group col-auto">
+      {% include 'month_select.html' %}
+    </div>
+</div>

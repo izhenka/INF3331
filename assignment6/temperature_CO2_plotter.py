@@ -44,7 +44,6 @@ def plot_CO2(options):
     data = pd.read_csv('co2.csv', sep=',')
     data = data.set_index('Year')
     
-    
     data = data.loc[options.year_from:options.year_to]
     plot = data.plot(kind="line", title = "Yearly CO2-emissions")
     plot.set_ylabel("CO2-emission, mln tons")
