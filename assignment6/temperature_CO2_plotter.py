@@ -22,8 +22,7 @@ def plot_temperature(options):
     data = data.iloc[:, options.month-1]
     plot = data.plot(kind="line", title = "Average temperature in {}".format(month_from_int(options.month)))
     plot.set_ylabel("Temperature, $^\circ$C")
-    if options.y_min!=None and options.y_max!=None:
-        plot.set_ylim(options.y_min,options.y_max)
+    plot.set_ylim(options.y_min,options.y_max)
 
 
 def month_from_int(number):
@@ -49,8 +48,7 @@ def plot_CO2(options):
     data = data.loc[options.year_from:options.year_to]
     plot = data.plot(kind="line", title = "Yearly CO2-emissions")
     plot.set_ylabel("CO2-emission, mln tons")
-    if options.y_min!=None and options.y_max!=None:
-        plot.set_ylim(options.y_min,options.y_max)
+    plot.set_ylim(options.y_min_co2, options.y_max_co2)
           
      
 if __name__ == '__main__':

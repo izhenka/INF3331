@@ -12,7 +12,7 @@ import uuid
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def plot_with_default():
     default_options =  Options.get_defaults()
     return render_plots(default_options)
@@ -26,7 +26,7 @@ def render_plots(options):
     
     body = f"""
     <h1>Visualization of temperature and CO2 data</h1>
-    {default_options.render()}
+    {options.render()}
     <img src="{temperature_url}" alt="Temperature vs. time plot" height="400" width="1200">
     <img src="{co2_url}" alt="CO2-emission vs. time plot" height="400" width="1200">
     """
@@ -59,7 +59,7 @@ def render_page(body):
     return html
 
 
-@app.route("/newplot", methods=['POST'])
+@app.route("/", methods=['POST'])
 def redraw():    
     options = get_options_from_request()
     error = options.check()
@@ -73,9 +73,11 @@ def get_options_from_request():
     year_from = request.form["yearFrom"]
     year_to = request.form["yearTo"]
     month = request.form["month"]
-    year_min = request.form["yMin"]
-    year_max = request.form["yMax"]    
-    options = Options(year_from, year_to, month, year_min, year_max)
+    y_min = request.form["yMin"]
+    y_max = request.form["yMax"]    
+    y_min_co2 = request.form["yMinCO2"]
+    y_max_co2 = request.form["yMaxCO2"]    
+    options = Options(year_from, year_to, month, y_min, y_max, y_min_co2, y_max_co2)
     return options
 
 

@@ -1,40 +1,50 @@
-<form action="newplot" method="POST">
-    <div class="container" style="width: 500px; margin-left: 10px; margin-top: 20px;">
+<form action="" method="POST">
+    <div class="container" style="width: 700px; margin-left: 10px; margin-top: 20px;">
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-auto">
             <label for="yearFrom">Year from</label>
-            <input type="number" name="yearFrom" class="form-control" id="yearFrom" placeholder="Enter year to plot from">
+            <input type="number" name="yearFrom" value="{{ options.year_from }}" class="form-control" id="yearFrom" placeholder="Enter year to plot from">
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-auto">
             <label for="yearTo">Year to</label>
-            <input type="number" name="yearTo" class="form-control" id="yearTo" placeholder="Enter year to plot to">
+            <input type="number" name="yearTo" value="{{ options.year_to }}" class="form-control" id="yearTo" placeholder="Enter year to plot to">
           </div>
         </div>
-          <div class="form-group">
-            <label for="month">Month(for temperature)</label>
-            <select name="month" class="form-control" id="month">
-              <option value="1">January</option>
-              <option value="2">February</option>
-              <option value="3">March</option>
-              <option value="4">April</option>
-              <option value="5">May</option>
-              <option value="6">June</option>
-              <option value="7">July</option>
-              <option value="8">August</option>
-              <option value="9">September</option>
-              <option value="10">October</option>
-              <option value="11">November</option>
-              <option value="12">December</option>
-            </select>
+          <div class="form-row">
+              <div class="form-group col-auto">
+                <label for="yMin">Temperature min</label>
+                <input type="number" name="yMin" value="{{ options.y_min }}" class="form-control" id="yMin" placeholder="Enter min y-value">
+              </div>
+              <div class="form-group col-auto">
+                <label for="yMax">Temperature max</label>
+                <input type="number" name="yMax" value="{{ options.y_max }}" class="form-control" id="yMax" placeholder="Enter max y-value">
+              </div>
+              <div class="form-group col-auto">
+                <label for="month">Month(for temperature)</label>
+                <select name="month" value="{{ options.month }}" class="form-control" id="month">
+                  <option value="1" {{ options.month_selected(1) }}>January</option>
+                  <option value="2" {{ options.month_selected(2) }}>February</option>
+                  <option value="3" {{ options.month_selected(3) }} >March</option>
+                  <option value="4" {{ options.month_selected(4) }}>April</option>
+                  <option value="5" {{ options.month_selected(5) }}>May</option>
+                  <option value="6" {{ options.month_selected(6) }}>June</option>
+                  <option value="7" {{ options.month_selected(7) }}>July</option>
+                  <option value="8" {{ options.month_selected(8) }}>August</option>
+                  <option value="9" {{ options.month_selected(9) }}>September</option>
+                  <option value="10" {{ options.month_selected(10) }}>October</option>
+                  <option value="11" {{ options.month_selected(11) }}>November</option>
+                  <option value="12" {{ options.month_selected(12) }}>December</option>
+                </select>
+              </div>
           </div>
           <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="yMin">Y-value min</label>
-                <input type="number" name="yMin" class="form-control" id="yMin" placeholder="Enter min y-value">
+              <div class="form-group ccol-auto">
+                <label for="yMinCO2">CO2 min</label>
+                <input type="number" name="yMinCO2" value="{{ options.y_min_co2 }}" class="form-control" id="yMinCO2" placeholder="Enter min y-value">
               </div>
-              <div class="form-group col-md-6">
-                <label for="yMax">Y-value max</label>
-                <input type="number" name="yMax" class="form-control" id="yMax" placeholder="Enter max y-value">
+              <div class="form-group col-auto">
+                <label for="yMaxCO2">CO2 max</label>
+                <input type="number" name="yMaxCO2" value="{{ options.y_max_co2 }}" class="form-control" id="yMaxCO2" placeholder="Enter max y-value">
               </div>
           </div>
           <button type="submit" class="btn btn-primary">Refresh</button>
