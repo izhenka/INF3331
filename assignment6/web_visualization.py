@@ -3,6 +3,7 @@ from flask import Flask
 from flask import url_for
 from flask import request
 from flask import render_template
+from flask import send_from_directory
 from options import Options
 from temperature_CO2_plotter import plot_temperature
 from temperature_CO2_plotter import plot_CO2
@@ -16,7 +17,6 @@ app = Flask(__name__)
 def plot_with_default():
     default_options =  Options.get_defaults()
     return render_page(default_options)
-
 
 def render_page(options):
     plot_temperature(options)
@@ -57,6 +57,16 @@ def save_plot_and_return_url():
     plt.cla()
     return url_for('static', filename=f'{uid}.png')
         
+        
+@app.route("/doc_options", methods=['GET'])
+def doc_options():
+    return send_from_directory('static','options_doc.html')
+
+
+@app.route("/doc_temperature_CO2_plotter", methods=['GET'])
+def doc_plotter():
+    return send_from_directory('static','temperature_CO2_plotter.html')
+
 
 if __name__ == "__main__":
     app.run()
