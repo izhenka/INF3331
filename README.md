@@ -1,1 +1,1 @@
-# INF3331-evgeniag
+# Studier i min favoritt emne
