@@ -1,1 +1,1 @@
-# Emne: Problemløsning med høytnivå språk
+# Problemløsning med høynivå-språk
