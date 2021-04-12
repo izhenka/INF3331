@@ -1,1 +1,1 @@
-# Studier i min favoritt emne
+# Emne: Problemløsning med høytnivå språk
